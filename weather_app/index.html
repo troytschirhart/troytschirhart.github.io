@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Weather App</title>
     <link rel="stylesheet" href="css/style.css">
     <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -11,10 +11,28 @@
     <script src="js/app.js"></script>
   </head>
   <body>
+    <header>Weather App</header>
+    <div class="">
+      <h2>Instructions</h2>
+      <p>Type the zip code for which you would like to recieve the 5 day weather forecast into the zip code box and click "submit".  The results will be displayed in the forecast block in 3 hour increments.  Press the "next day" button to advance forward through the days in the forecast, and press the "previous day" button to advance in reverse.  If interested in the weather forecast for a different zip code, please enter it into the zip code box and click "submit."</p>
+    </div>
     <form class="" action="index.html" method="post">
       <input type="text" id="input-box"/>
       <input type="submit" id="submit-btn"/>
     </form>
+    <div class="resultsContainer">
+
+      <div class="carouselContainer">
+
+        <div class="forecastContainer"></div>
+
+        <img src="https://images.emojiterra.com/google/android-oreo/512px/27a1.png" alt="" class="leftArrow">
+
+        <img src="https://images.emojiterra.com/google/android-oreo/512px/27a1.png" alt="" class="rightArrow">
+        
+      </div>
+
+    </div>
 
   </body>
 </html>

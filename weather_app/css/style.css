@@ -1,3 +1,65 @@
 * {
+  background-color: rgb(150, 240, 256);
+  border: 1px solid gold;
+  width: 320px;
+}
+
+body {
+  text-align: center;
+}
+
+.resultsContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.carouselContainer {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    width: 305px;
+}
+
+.leftArrow {
+  transform: rotate(180deg);
+  width: 50px;
+  height: 50px;
+}
+
+.forecastContainer {
+  width: 300px;
+  height: 300px;
+  color: white;
+  font-size: .5em;
+  font-weight: bold;
   background-color: blue;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.rightArrow {
+  width: 50px;
+  height: 50px;
+}
+
+.day {
+  background-color: inherit;
+}
+
+.day > ul {
+  width: 300px;
+  border: 1px dashed green;
+}
+
+.day > li {
+  background-color: inherit;
+  list-style-type: none;
+  border: 1px solid red;
+}
+
+p {
+  text-align: center;
+  background-color: inherit;
+  margin: 0;
 }
