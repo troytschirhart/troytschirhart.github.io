@@ -182,21 +182,32 @@ $(() => {
 
         // Loop through the local days to create each day header
         for (let j = 0; j <=firstDay.length-1; j++) {
-          let dayHeader = `Forecast for ${data.city.name} on ${currentMonth[firstDay[j]]}/${currentDay[firstDay[j]]}/${currentYear[firstDay[j]]}`;
+          let $dayHeader = $('<p>');
+          $dayHeader.text(`Forecast for ${data.city.name} on ${currentMonth[firstDay[j]]}/${currentDay[firstDay[j]]}/${currentYear[firstDay[j]]}`);
           // Replace the console log with appending to forecast container
-          // Assign the corresponding dayClass to each day header
-          // dayHeader should be centered via css 
-          console.log(dayHeader);
+          // Assign the corresponding rowClass to each day header
+          // dayHeader should be centered via css
+
+          // console.log(dayHeader);
+          $dayHeader.addClass(rowClass[firstDay[j]]);
+          $('.forecastContainer').append($dayHeader);
         }
 
         // Create the column header (assign all 6 class to the column header)
         // Replace console log with appending to the forecast container
-        console.log("      Humidity Temp  Wind  Direction  ");
-        console.log("  Time   (%)   (F)   (mph)  (deg)   Conditions");
+        let $header1 = $('<p>');
+        let $header2 = $('<p>');
+        $header1.text(`      Humidity Temp  Wind  Direction  `);
+        $header2.text(`  Time   (%)   (F)   (mph)  (deg)  Conditions`);
+
+        $('.forecastContainer').append($header1);
+        $('.forecastContainer').append($header2);
+
+        let $dataRows = $('<ul>');
+        $('.forecastContainer').append($dataRows);
 
 
-
-
+        // Fix the length of each data field and create a string for each row
         for (let i = 0; i < 40; i++) {
           let tempSpace = "";
           let humSpace = "";
@@ -217,7 +228,7 @@ $(() => {
           let mphLength = (windSpeed[i].toString()).length;
           let degLength = (windDirection[i].toString()).length;
 
-          let rowString = "";
+          // let rowString = [];
 
           // Make all temperature entries 6 characters long
           if (6 - tempLength > 0) {
@@ -254,9 +265,14 @@ $(() => {
           }
           windDirection[i] = degSpace + windDirection[i];
 
-          rowString = (`${currentHour[i]} ${humidity[i]} ${temperature[i]}  ${windSpeed[i]}  ${windDirection[i]}  ${conditions[i]}`)
+          let $rowString = $('<li>');
+          $rowString.text(`${currentHour[i]} ${humidity[i]} ${temperature[i]}  ${windSpeed[i]}  ${windDirection[i]}  ${conditions[i]}`);
+          $rowString.addClass(rowClass[i]);
+          $rowString.addClass('dataLine');
+          $dataRows.append($rowString);
 
-          console.log(rowString);
+          // $dayHeader.addClass(rowClass[firstDay[j]]);
+          // $('.forecastContainer').append($dayHeader);
 
     }    // Close the for loop
 
@@ -266,33 +282,16 @@ $(() => {
         //   console.log(`${currentMonth[i]}/${currentDay[i]}/${currentYear[i]}  ${currentHour[i]}   ${temperature[i]} ${humidity[i]}  ${windSpeed[i]}  ${windDirection[i]}   ${conditions[i]}`);
         // }
 
+        $('.day0').css('display', 'none');
+        $('.day1').css('display', 'none');
+        $('.day2').css('display', 'none');
+        $('.day3').css('display', 'none');
+        $('.day4').css('display', 'none');
+        $('.day5').css('display', 'block');
 
 
 
 
-
-
-        const $leadIn = $('<p>').addClass('leadIn');
-        $leadIn.text(`Forecast for ${data.city.name} on ${data.list[0].dt_txt}`)
-
-        const $columnHead1 = $('<p>').addClass('columnHeader');
-        $columnHead1.text(`                          wind  wind`);
-
-        const $columnHead2 = $('<p>').addClass('columnHeader');
-        $columnHead2.text(`time     temp     humidity     speed     direction     conditions`);
-
-        $('.forecastContainer').append($leadIn);
-        $('.forecastContainer').append($columnHead1);
-        $('.forecastContainer').append($columnHead2);
-
-        const $dayOne = $('<ul>').addClass('day');
-        const $dayTime = $('<li>').text(data.list[0].dt_txt);
-        const $temp = $('<li>').text(data.list[0].main.temp);
-        $dayOne.append($dayTime);
-        $dayOne.append($temp);
-        $('.forecastContainer').append($dayOne);
-
-        // console.log(data);
       })
 
 

@@ -59,7 +59,24 @@ body {
 }
 
 p {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  background-color: inherit;
+  margin: 0;
+  width: 300px;
+}
+
+.dataLine {
+  /* display: flex;
+  flex-flow: column; */
+  background-color: inherit;
+  margin: 0;
+}
+
+ul {
+  /* display: flex;
+  flex-flow: column wrap; */
+  list-style-type: none;
   background-color: inherit;
   margin: 0;
 }
