@@ -8,8 +8,6 @@
 
 
 
-
-
 //===============================  Start of on load  =======================
 $(() => {
 
@@ -52,7 +50,7 @@ $(() => {
         let dayCounter = 0; // count the number of days in the forecast (5 or 6)
         let dayStart = 0;   // index for the first datapoint in a new day
         let forecastDay = 0; // tag each day with its position in the forecast
-        let firstDay = [];
+        let firstDay = [0];
         let dayClass = "";
         let currentYear = [];
         let currentMonth = [];
@@ -66,8 +64,9 @@ $(() => {
         let conditions = [];
         let currentClass = [];   // store the day class for each datapoint
         let tempFaherenheit = 0;
+        let rowClass = [];
 
-        console.log("Mo/Day/Yr  Time     Temp(F)  Hum(%)  Wind(mph)  Wind(deg)  Conditions");
+        // console.log("Mo/Day/Yr  Time     Temp(F)  Humidty(%)  Wind(mph)  Wind(deg)  Conditions");
 
         //===============================================================
         //  PARSE THE DATA ELEMENTS OF INTEREST AND STORE THEM IN ARRAYS
@@ -91,7 +90,6 @@ $(() => {
           //================================================================
           //  PARSE DATE AND TIME, CORRECT FOR TIME ZONE, ADJUST ACCORDINGLY
           //================================================================
-          dayClass = "day" + dayCounter;
           let dateTime = (data.list[i].dt_txt).split("-");
           let timeSplit = dateTime[2].split(" ");
           currentYear [i] = dateTime[0];
@@ -157,33 +155,122 @@ $(() => {
           }
 
 
-          // Convert temperature from Kelvin to Fahrenheit
+          // Check for the start of a new day;
+          if (currentDay[i] !== currentDay[dayStart]) {
+            dayCounter++;
+            dayStart = i;
+            firstDay.push(dayStart);
+            dayClass = "day" + dayCounter;
+          } else {
+            dayClass = "day" + dayCounter;
+          }
+
+          rowClass[i] = dayClass;
+
+          // Console log each row of data
+          // console.log(`${currentMonth[i]}/${currentDay[i]}/${currentYear[i]}  ${currentHour[i]}   ${temperature[i]}   ${humidity[i]}   ${windSpeed[i]}  ${windDirection[i]}   ${conditions[i]}   ${rowClass[i]}`);
 
 
 
-          // convert m/s to mph  =>  multiply the speed value by 2.237
-          //  Example: 4.39 m/s * 2.237  = 9.82015 mph
 
-          console.log(`${currentMonth[i]}/${currentDay[i]}/${currentYear[i]}  ${currentHour[i]}   ${temperature[i]}   ${humidity[i]}   ${windSpeed[i]}  ${windDirection[i]}   ${conditions[i]}`);
+
+
+
+
+        }  // Close the for loop
+
+
+        // Loop through the local days to create each day header
+        for (let j = 0; j <=firstDay.length-1; j++) {
+          let dayHeader = `Forecast for ${data.city.name} on ${currentMonth[firstDay[j]]}/${currentDay[firstDay[j]]}/${currentYear[firstDay[j]]}`;
+          // Replace the console log with appending to forecast container
+          // Assign the corresponding dayClass to each day header
+          // dayHeader should be centered via css 
+          console.log(dayHeader);
         }
 
+        // Create the column header (assign all 6 class to the column header)
+        // Replace console log with appending to the forecast container
+        console.log("      Humidity Temp  Wind  Direction  ");
+        console.log("  Time   (%)   (F)   (mph)  (deg)   Conditions");
+
+
+
+
+        for (let i = 0; i < 40; i++) {
+          let tempSpace = "";
+          let humSpace = "";
+          let mphSpace = "";
+          let degSpace = "";
+
+          // fix the real numbers to display all digits, even if 0's after '.'
+          temperature[i] = temperature[i].toFixed(2)
+          windSpeed[i] = windSpeed[i].toFixed(2);
+          windDirection[i] = windDirection[i].toFixed(2);
+
+
+          // let mphLength = (fixedSpeed.toString()).length;
+          // console.log(fixedSpeed + "     " + fixedSpeed.toString() + "    " + mphLength);
+
+          let tempLength = (temperature[i].toString()).length;
+          let humLength = (humidity[i].toString()).length;
+          let mphLength = (windSpeed[i].toString()).length;
+          let degLength = (windDirection[i].toString()).length;
+
+          let rowString = "";
+
+          // Make all temperature entries 6 characters long
+          if (6 - tempLength > 0) {
+            for (let j = 0; j < (6 - tempLength); j++) {
+              tempSpace += " ";
+            }
+          }
+          temperature[i] = tempSpace + temperature[i];
+
+
+          // Make all humidity entries 3 characters long
+          if (3 - humLength > 0) {
+            for (let j = 0; j < (3 - humLength); j++) {
+              humSpace += " ";
+            }
+          }
+          humidity[i] = humSpace + humidity[i];
+
+
+          // Make all windSpeed entries 5 characters long
+          if (5 - mphLength > 0) {
+            for (let j = 0; j < (5 - mphLength); j++) {
+              mphSpace += " ";
+            }
+          }
+          windSpeed[i] = mphSpace + windSpeed[i];
+
+
+          // Make all windDirection entries 6 characters long
+          if (6 - degLength > 0) {
+            for (let j = 0; j < (6 - degLength); j++) {
+              degSpace += " ";
+            }
+          }
+          windDirection[i] = degSpace + windDirection[i];
+
+          rowString = (`${currentHour[i]} ${humidity[i]} ${temperature[i]}  ${windSpeed[i]}  ${windDirection[i]}  ${conditions[i]}`)
+
+          console.log(rowString);
+
+    }    // Close the for loop
+
+        // Append each row of the data to the forecast container
+        // replace with appending
+        // for (let i = 0; i < 40; i++) {
+        //   console.log(`${currentMonth[i]}/${currentDay[i]}/${currentYear[i]}  ${currentHour[i]}   ${temperature[i]} ${humidity[i]}  ${windSpeed[i]}  ${windDirection[i]}   ${conditions[i]}`);
+        // }
 
 
 
 
 
 
-//         console.log("forecast date and UTC time: " + data.list[0].dt_txt);
-//         console.log("temperature in degrees Kelvin: " + data.list[0].main.temp);
-// let tempFaherenheit = (Math.floor((((data.list[0].main.temp -273.15) * 9/5) + 32) * 100))/100
-//
-//         console.log("temperature in degrees Fahrenheit: " + tempFaherenheit);
-//         console.log("percent humidity: " + data.list[0].main.humidity);
-//         console.log("wind speed in meters per second: " + data.list[0].wind.speed);
-//         console.log("direction from which wind originates in degrees: " + data.list[0].wind.deg);
-//         console.log("overall weather conditions: " + data.list[0].weather[0].description);
-//         console.log(data.city.name);
-//         console.log(data.city.timezone/3600);
 
         const $leadIn = $('<p>').addClass('leadIn');
         $leadIn.text(`Forecast for ${data.city.name} on ${data.list[0].dt_txt}`)
@@ -205,7 +292,7 @@ $(() => {
         $dayOne.append($temp);
         $('.forecastContainer').append($dayOne);
 
-        console.log(data);
+        // console.log(data);
       })
 
 
