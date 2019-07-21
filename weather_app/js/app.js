@@ -5,7 +5,8 @@
 //  GLOBAL VARIABLES
 //==================================
 
-
+let dayTracker = 0;
+let highestIndex = 0;
 
 
 //===============================  Start of on load  =======================
@@ -18,13 +19,59 @@ $(() => {
 
 
 
-//==================================
-//  EVENT LISTENERS
-//==================================
+  //==================================
+  //  EVENT LISTENERS
+  //==================================
+  // $(() => {
 
+  //===========================================
+  //  EVENT LISTENER FOR NEXT DAY BUTTON
+  //===========================================
+  $('.next').on('click', () => {
+    let currentDayClass = '.day' + dayTracker;
+    if (dayTracker < highestIndex) {
+      $(currentDayClass).css('display', 'none');
+      dayTracker++;
+      newDayClass = '.day' + dayTracker;
+      $(newDayClass).css('display', 'block');
+    }
 
+    // if the highest index has been reached, before or now, only gray the button
+    if (dayTracker === highestIndex) {
+      console.log('gray the button');
+    }
 
-$(() => {
+  })
+
+  //===========================================
+  //  EVENT LISTENER FOR PREVIOUS DAY BUTTON
+  //===========================================
+  $('.previous').on('click', () => {
+    let currentDayClass = '.day' + dayTracker;
+    if (dayTracker > 0) {
+      $(currentDayClass).css('display', 'none');
+      dayTracker--;
+      newDayClass = '.day' + dayTracker;
+      $(newDayClass).css('display', 'block');
+    }
+    // if the lowest index has been reached, before or now, only gray the button
+    if (dayTracker === 0) {
+      console.log('gray the button');
+    }
+
+  })
+
+  // $('.previous').on('click', () => {
+    // hide current day data
+    // display previous day's data
+    // update current day tracker
+    // check to ensure that next day doesn't go beyond data
+    // if it's the first of the data, gray the button
+  // })
+
+  //===========================================
+  //  EVENT LISTENER FOR ZIP CODE SUBMIT BUTTON
+  //===========================================
   $('form').on('submit', (event) => {
 
     const zipCode = $('#input-box').val();
@@ -65,6 +112,7 @@ $(() => {
         let currentClass = [];   // store the day class for each datapoint
         let tempFaherenheit = 0;
         let rowClass = [];
+        dayTracker = 0;       // reset current day to day 0
 
         // console.log("Mo/Day/Yr  Time     Temp(F)  Humidty(%)  Wind(mph)  Wind(deg)  Conditions");
 
@@ -282,12 +330,15 @@ $(() => {
         //   console.log(`${currentMonth[i]}/${currentDay[i]}/${currentYear[i]}  ${currentHour[i]}   ${temperature[i]} ${humidity[i]}  ${windSpeed[i]}  ${windDirection[i]}   ${conditions[i]}`);
         // }
 
-        $('.day0').css('display', 'none');
+        highestIndex = firstDay.length-1;
+
+        // Display the first day's data and hide the other days
+        $('.day0').css('display', 'block');
         $('.day1').css('display', 'none');
         $('.day2').css('display', 'none');
         $('.day3').css('display', 'none');
         $('.day4').css('display', 'none');
-        $('.day5').css('display', 'block');
+        $('.day5').css('display', 'none');
 
 
 
@@ -301,8 +352,8 @@ $(() => {
         event.preventDefault();
 
 
-  })
-})
+  })  // end of submit
+// })
 
 
 
