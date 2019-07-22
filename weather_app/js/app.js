@@ -85,8 +85,12 @@ $(() => {
 
     const zipCode = $('#input-box').val();
 
+    if (isNaN(zipCode) || zipCode.length !== 5) {
+      alert('Not a 5-digit number, please try again');
+    }
+
     // Remove resultsContainer's children from previous searches
-    $(".forecastContainer").children().text("");
+    $(".forecastContainer").children().remove();
     $('.previous').css('background-color','gray');
 
     //=========================================================
@@ -95,6 +99,7 @@ $(() => {
     $.ajax({        // Add the zip code to the url to pull the desired data
       url: "http://api.openweathermap.org/data/2.5/forecast?zip=" + zipCode + ",us&APPID=5d118fc36b1c769a2923778a4df26bd0"
     }).then(
+
 
       //=========================================================
       //  START OF DATA BLOCK - MOST OF THE WORK HAPPENS HERE
@@ -364,11 +369,12 @@ $(() => {
         $('.day4').css('display', 'none');
         $('.day5').css('display', 'none');
 
-
-
+        // If there is an error, probably for invalid zip, notify user
+        (error) => {
+          alert('Not a valid zip code');
+        }
 
       })
-
 
 
     // reset the form and prevent default actions
