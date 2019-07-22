@@ -1,39 +1,30 @@
 
 
-
 //==================================
 //  GLOBAL VARIABLES
 //==================================
 
-let dayTracker = 0;
-let highestIndex = 0;
+let dayTracker = 0;    // Tracks which forecast day is being displayed
+let highestIndex = 0;  // Trackis the highest index of forecast days
 
 
 //===============================  Start of on load  =======================
 $(() => {
 
-
-
-
-
-
-
-
-  //==================================
-  //  EVENT LISTENERS
-  //==================================
-  // $(() => {
+  //========================================================================
+  //  3 EVENT LISTENERS - submit zip code, previous, next
+  //========================================================================
 
   //===========================================
   //  EVENT LISTENER FOR NEXT DAY BUTTON
   //===========================================
-  $('.next').on('click', () => {
-    let currentDayClass = '.day' + dayTracker;
-    if (dayTracker < highestIndex) {
-      $(currentDayClass).css('display', 'none');
-      dayTracker++;
-      newDayClass = '.day' + dayTracker;
-      $(newDayClass).css('display', 'block');
+  $('.next').on('click', () => {                 // advance to the next day
+    let currentDayClass = '.day' + dayTracker;   // string for current day class
+    if (dayTracker < highestIndex) {             // don't go beyond forecast
+      $(currentDayClass).css('display', 'none'); // hide current day's forecast
+      dayTracker++;                              // advance to next day
+      newDayClass = '.day' + dayTracker;         // create string for new class
+      $(newDayClass).css('display', 'block');    // display new forecast day
     }
 
     // if the highest index has been reached, before or now, only gray the button
@@ -41,57 +32,58 @@ $(() => {
       $('.next').css('background-color', 'gray');
     }
 
+    // If the forecast has advanced off of day 0, ungray the previous button
     if (dayTracker > 0) {
       $('.previous').css('background-color', 'lightgray');
     }
 
-  })
+  })  // End of next
+
 
   //===========================================
   //  EVENT LISTENER FOR PREVIOUS DAY BUTTON
   //===========================================
-  $('.previous').on('click', () => {
-    let currentDayClass = '.day' + dayTracker;
-    if (dayTracker > 0) {
-      $(currentDayClass).css('display', 'none');
-      dayTracker--;
-      newDayClass = '.day' + dayTracker;
-      $(newDayClass).css('display', 'block');
+  $('.previous').on('click', () => {             // advance to the previous day
+    let currentDayClass = '.day' + dayTracker;   // string for current day class
+    if (dayTracker > 0) {                        // can't go into the past
+      $(currentDayClass).css('display', 'none'); // hide current day's forecast
+      dayTracker--;                              // advance to previous day
+      newDayClass = '.day' + dayTracker;         // create string for new class
+      $(newDayClass).css('display', 'block');    // display new forecast day
     }
 
-    // if the highest index has been reached, before or now, only gray the button
+    // if 0 index has been reached, before or now, only gray the button
     if (dayTracker === 0) {
       $('.previous').css('background-color', 'gray');
     }
 
+    // If the forecast has advanced off of the highest index, ungray the next button
     if (dayTracker < highestIndex) {
       $('.next').css('background-color', 'lightgray');
     }
 
-  })
+  })  // end of previous
 
-  // $('.previous').on('click', () => {
-    // hide current day data
-    // display previous day's data
-    // update current day tracker
-    // check to ensure that next day doesn't go beyond data
-    // if it's the first of the data, gray the button
-  // })
 
   //===========================================
   //  EVENT LISTENER FOR ZIP CODE SUBMIT BUTTON
   //===========================================
-  $('form').on('submit', (event) => {
+  $('form').on('submit', (event) => {              // Submit the zip code
 
-    const zipCode = $('#input-box').val();
+    const zipCode = $('#input-box').val();         // zip code value
 
+    // ensure the entered zip code is a 5-digit number
     if (isNaN(zipCode) || zipCode.length !== 5) {
       alert('Not a 5-digit number, please try again');
     }
 
     // Remove resultsContainer's children from previous searches
     $(".forecastContainer").children().remove();
+
+    // Turn previous button gray and next light gray,
+    // since the forecast will start on day 0
     $('.previous').css('background-color','gray');
+    $('.next').css('background-color','lightgray');    
 
     //=========================================================
     //  START OF AJAX
@@ -111,55 +103,59 @@ $(() => {
         //=================================================================
         let dayCounter = 0; // count the number of days in the forecast (5 or 6)
         let dayStart = 0;   // index for the first datapoint in a new day
-        let forecastDay = 0; // tag each day with its position in the forecast
-        let firstDay = [0];
-        let dayClass = "";
-        let currentYear = [];
-        let currentMonth = [];
-        let currentDay = [];
-        let currentTime = 0;
-        let currentHour = [];
-        let temperature = [];
-        let humidity = [];
-        let windSpeed = [];
-        let windDirection = [];
-        let conditions = [];
-        let currentClass = [];   // store the day class for each datapoint
-        let tempFaherenheit = 0;
+        let firstDay = [0];  // array of indices of the first entry for each day
+        let dayClass = "";    // used to generate classes for each day
+        let currentYear = [];   // array of year entries for each forecast entry
+        let currentMonth = [];  // array of month entries for each forecast entry
+        let currentDay = [];    // array of day entries for each forecast entry
+        let currentTime = 0;    // used in parsing the time string into hh:mm:ss
+        let currentHour = [];   // array of hour entries for each forecast entry
+        let temperature = []; // array of temperatures for each forecast
+        let humidity = [];  // array of humidity entries for each forecast entry
+        let windSpeed = []; // array of windSpeed entries for each forecast entry
+        let windDirection = []; // array of windDirection for each forecast
+        let conditions = []; // array of conditions for each forecast entry
         let rowClass = [];
         dayTracker = 0;       // reset current day to day 0
+
+        // let forecastDay = 0; // tag each day with its position in the forecast
+        // let currentClass = [];   // store the day class for each datapoint
+        // let tempFaherenheit = 0;
 
         // console.log("Mo/Day/Yr  Time     Temp(F)  Humidty(%)  Wind(mph)  Wind(deg)  Conditions");
 
         //===============================================================
         //  PARSE THE DATA ELEMENTS OF INTEREST AND STORE THEM IN ARRAYS
         //===============================================================
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 40; i++) {    // loop through all 40 data points
 
           //=========================================================
           //  PARSE WEATHER DATA AND CONVERT UNITS
           //=========================================================
 
-          // Pull the temperature and convert it from Kelvin to Fahrenheit
+          // Pull the temperature, convert from Kelvin to Fahrenheit, store
           temperature[i] = (Math.floor((((data.list[i].main.temp -273.15) * 9/5) + 32) * 100))/100;
 
-          // Pull the windSpeed and convert it from meters/sec to mph
+          // Pull the windSpeed, convert from meters/sec to mph, store
           windSpeed[i] = Math.floor(data.list[i].wind.speed * 223.7) / 100;
 
+          // round the wind direction to 2 decimal places, store
           windDirection[i] = (Math.floor(data.list[i].wind.deg * 100)) / 100;
-          humidity[i] = data.list[i].main.humidity;
-          conditions[i] = data.list[i].weather[0].description
+
+          humidity[i] = data.list[i].main.humidity;           // store humidity
+          conditions[i] = data.list[i].weather[0].description // store description
 
           //================================================================
           //  PARSE DATE AND TIME, CORRECT FOR TIME ZONE, ADJUST ACCORDINGLY
           //================================================================
-          let dateTime = (data.list[i].dt_txt).split("-");
-          let timeSplit = dateTime[2].split(" ");
-          currentYear [i] = dateTime[0];
-          currentMonth [i] = dateTime[1];
-          currentDay [i] = timeSplit[0];
-          currentTime = timeSplit[1];
-          let hourMinSec = currentTime.split(":");
+          let dateTime = (data.list[i].dt_txt).split("-");  // split year/month
+          let timeSplit = dateTime[2].split(" ");          // grab day/time
+          currentYear [i] = dateTime[0];               // store year
+          currentMonth [i] = dateTime[1];              // store month
+          currentDay [i] = timeSplit[0];               // store day
+          currentTime = timeSplit[1];                  // grab time
+          let hourMinSec = currentTime.split(":");     // split hh:mm:ss
+          // Calculate the current local time using UTC time and offset
           let theHour = parseInt(hourMinSec[0]) + data.city.timezone/3600;
 
           // If the shift to local time makes the local hour negative,
@@ -218,27 +214,17 @@ $(() => {
           }
 
 
-          // Check for the start of a new day;
-          if (currentDay[i] !== currentDay[dayStart]) {
-            dayCounter++;
-            dayStart = i;
-            firstDay.push(dayStart);
-            dayClass = "day" + dayCounter;
-          } else {
-            dayClass = "day" + dayCounter;
+          // is current data a continuation of current day or start of a new day?
+          if (currentDay[i] !== currentDay[dayStart]) {   // if it's a new day
+            dayCounter++;                          // increment the day count
+            dayStart = i;                         // new day started with i
+            firstDay.push(dayStart);              // add new dayStart to array
+            dayClass = "day" + dayCounter;        // create new dayClass
+          } else {                               // if not a new day
+            dayClass = "day" + dayCounter;       // create dayClass w/current
           }
 
-          rowClass[i] = dayClass;
-
-          // Console log each row of data
-          // console.log(`${currentMonth[i]}/${currentDay[i]}/${currentYear[i]}  ${currentHour[i]}   ${temperature[i]}   ${humidity[i]}   ${windSpeed[i]}  ${windDirection[i]}   ${conditions[i]}   ${rowClass[i]}`);
-
-
-
-
-
-
-
+          rowClass[i] = dayClass;   // store the class for this row in an array
 
         }  // Close the for loop
 
@@ -247,35 +233,34 @@ $(() => {
         for (let j = 0; j <=firstDay.length-1; j++) {
           let $dayHeader = $('<p>');
           $dayHeader.text(`Forecast for ${data.city.name} on ${currentMonth[firstDay[j]]}/${currentDay[firstDay[j]]}/${currentYear[firstDay[j]]}`);
-          // Replace the console log with appending to forecast container
-          // Assign the corresponding rowClass to each day header
-          // dayHeader should be centered via css
 
-          // console.log(dayHeader);
+          // append day header to the DOM
           $dayHeader.addClass(rowClass[firstDay[j]]);
           $dayHeader.addClass('cityDate');
           $('.forecastContainer').append($dayHeader);
         }
 
-        // Create the column header (assign all 6 class to the column header)
-        // Replace console log with appending to the forecast container
+        // Create the column header
         let $header1 = $('<p>');
         let $header2 = $('<p>');
         $header1.text(`         Humidity  Temp  Wind  Direction  `);
         $header2.text(`   Time       (%)    (F)    (mph)   (deg)    Conditions`);
 
+        // ensure white spaces aren't dropped so alignment is maintained
         $header1.css('white-space','pre');
         $header2.css('white-space','pre');
 
+        // give each header line some class
         $header1.addClass('columnTop');
         $header2.addClass('columnBottom');
 
-
+        // append column headers to the DOM
         $('.forecastContainer').append($header1);
         $('.forecastContainer').append($header2);
 
+        // create an unordered list to hold all of the rows of data
         let $dataRows = $('<ul>');
-        $('.forecastContainer').append($dataRows);
+        $('.forecastContainer').append($dataRows);  // append to the DOM
 
 
         // Fix the length of each data field and create a string for each row
@@ -290,26 +275,16 @@ $(() => {
           windSpeed[i] = windSpeed[i].toFixed(2);
           windDirection[i] = windDirection[i].toFixed(2);
 
-
-          // let mphLength = (fixedSpeed.toString()).length;
-          // console.log(fixedSpeed + "     " + fixedSpeed.toString() + "    " + mphLength);
-
+          // Get the length of each number
           let tempLength = (temperature[i].toString()).length;
           let humLength = (humidity[i].toString()).length;
           let mphLength = (windSpeed[i].toString()).length;
           let degLength = (windDirection[i].toString()).length;
 
+          // fixed space character that html won't ignore
           let spaceCharacter = String.fromCharCode(160);
-          // let rowString = [];
 
-          // Make all temperature entries 6 characters long
-          // if (6 - tempLength > 0) {
-          //   for (let j = 0; j < (6 - tempLength); j++) {
-          //     tempSpace += " ";
-          //   }
-          // }
-          // temperature[i] = tempSpace + temperature[i];
-
+          // Make all temp entries 6 characters long
           if (6 - tempLength > 0) {
             temperature[i] = spaceCharacter.repeat(6 - tempLength) + temperature[i];
           }
@@ -322,7 +297,6 @@ $(() => {
           }
           humidity[i] = humSpace + humidity[i];
 
-
           // Make all windSpeed entries 5 characters long
           if (5 - mphLength > 0) {
             for (let j = 0; j < (5 - mphLength); j++) {
@@ -330,7 +304,6 @@ $(() => {
             }
           }
           windSpeed[i] = mphSpace + windSpeed[i];
-
 
           // Make all windDirection entries 6 characters long
           if (6 - degLength > 0) {
@@ -340,25 +313,19 @@ $(() => {
           }
           windDirection[i] = degSpace + windDirection[i];
 
+          // create a list item to hold the row of data as a string
           let $rowString = $('<li>');
-          $rowString.css('white-space', 'pre');
+          $rowString.css('white-space', 'pre'); // ensure spaces won't be dropped
           $rowString.text(`${spaceCharacter.repeat(1)}${currentHour[i]}  ${spaceCharacter.repeat(3 - humLength)}${humidity[i]}  ${spaceCharacter.repeat(6 - tempLength)}${temperature[i]}  ${spaceCharacter.repeat(5 - mphLength)}${windSpeed[i]}   ${spaceCharacter.repeat(6 - degLength)}${windDirection[i]}   ${conditions[i]}`);
-          // $rowString.css('white-space', 'pre');
+
+          // Give the row string some class and append it to the ul
           $rowString.addClass(rowClass[i]);
           $rowString.addClass('dataLine');
           $dataRows.append($rowString);
 
-          // $dayHeader.addClass(rowClass[firstDay[j]]);
-          // $('.forecastContainer').append($dayHeader);
-
     }    // Close the for loop
 
-        // Append each row of the data to the forecast container
-        // replace with appending
-        // for (let i = 0; i < 40; i++) {
-        //   console.log(`${currentMonth[i]}/${currentDay[i]}/${currentYear[i]}  ${currentHour[i]}   ${temperature[i]} ${humidity[i]}  ${windSpeed[i]}  ${windDirection[i]}   ${conditions[i]}`);
-        // }
-
+        // store the value of the highest starting day index
         highestIndex = firstDay.length-1;
 
         // Display the first day's data and hide the other days
@@ -369,40 +336,17 @@ $(() => {
         $('.day4').css('display', 'none');
         $('.day5').css('display', 'none');
 
-        // If there is an error, probably for invalid zip, notify user
-        (error) => {
+        // If there is an error, probably for invalid zip code, notify user
+        (error) => {                         // This doesn't catch the error
           alert('Not a valid zip code');
         }
-
       })
-
 
     // reset the form and prevent default actions
         $(event.currentTarget).trigger('reset')
         event.preventDefault();
 
-
-  })  // end of submit
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  })  // end of submit block
 
 
 //===============================  End of on load  =======================

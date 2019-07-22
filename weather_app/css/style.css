@@ -1,3 +1,5 @@
+
+/* Format the overall page, include a cloud image in the background */
 * {
   background-color: rgb(150, 240, 256);
   width: 320px;
@@ -7,6 +9,7 @@
   background-size: cover;
 }
 
+/* Format the body */
 body {
   text-align: center;
   margin: 25px auto;
@@ -15,6 +18,7 @@ body {
   background-image: none;
 }
 
+/* Format the header that says, "Weather App" */
 header {
   background-color: white;
   font-size: 2.5em;
@@ -23,12 +27,14 @@ header {
   background-image: none;
 }
 
+/* Format the word "Instructions" */
 h2 {
   background-color: white;
   margin-top: 3px;
   background-image: none;
 }
 
+/* Format the actual instructions */
 h3 {
   text-align: center;
   margin: 0;
@@ -40,12 +46,14 @@ h3 {
   background-image: none;
 }
 
+/* Format the form that takes the zip code input */
 .zipForm {
   background-color: white;
   padding: 0 0 10px 0;
   background-image: none;
 }
 
+/* Format the text entry part of the form */
 .zipInput {
   text-align: center;
   width: 296px;
@@ -56,6 +64,7 @@ h3 {
   font-weight: 700;
 }
 
+/* Format the submit button */
 .submitBtn {
   width: 300px;
   border: 1px solid green;
@@ -64,14 +73,17 @@ h3 {
   background-image: none;
 }
 
+/* text cursor for text part of the form */
 .zipInput:hover {
   cursor: text;
 }
 
+/* pointer for the submit button */
 .submitBtn:hover {
   cursor: pointer;
 }
 
+/* Format the results container */
 .resultsContainer {
   display: flex;
   justify-content: center;
@@ -79,6 +91,7 @@ h3 {
   background-image: none;
 }
 
+/* Format the carousel container  */
 .carouselContainer {
   display: flex;
   flex-flow: row wrap;
@@ -89,7 +102,7 @@ h3 {
   background-image: none;
 }
 
-
+/*  Format the forecast container (blue background) */
 .forecastContainer {
   width: 300px;
   height: 220px;
@@ -104,21 +117,24 @@ h3 {
   background-image: none;
 }
 
+/* Format the line that displays the city and forecast date */
 .cityDate {
   color: gold;
 }
 
+/* Format the top line of the column headings  */
 .columnTop {
   border-top: 1px solid white;
   background-image: none;
 }
 
+/* Format the bottom line of the column headings */
 .columnBottom {
   border-bottom: 1px solid white;
   background-image: none;
 }
 
-
+/* Format the header background within the forecast container */
 p {
   display: flex;
   align-items: flex-start;
@@ -135,6 +151,7 @@ p {
   background-image: none;
 }
 
+/* Format the unordered list */
 ul {
   display: flex;
   flex-flow: column;
@@ -148,12 +165,14 @@ ul {
   white-space: pre;
 }
 
+/* Format the list items */
 li {
   width: 300px;
   white-space: pre;
   text-align: left;
 }
 
+/* Format the button container that holds the previous and next buttons */
 .buttonContainer {
   display: flex;
   flex-direction: row;
@@ -163,6 +182,7 @@ li {
   background-image: none;
 }
 
+/* Format the previous and next buttons */
 .previous, .next {
   width: 140px;
   border: 1px solid green;
@@ -170,31 +190,38 @@ li {
   background-image: none;
 }
 
+/* Set the cursor hover to pointer  */
 .previous:hover {
   cursor: pointer;
 }
 
+/* Set the cursor hover to pointer */
 .next:hover {
   cursor: pointer;
 }
 
 
-/* Set the page to be responsive */
+/* Set the page to be responsive when it expands from mobile to desktop */
 @media (min-width: 600px) {
+
+/* Set new overall width  */
 * {
     width: 520px;
 }
 
+/* Make the instructions larger */
 h3 {
   font-size: 1.2em;
   width: 496px;
 }
 
+/* Move the zip code submit buttons from stacked to side-by-side */
 .zipForm {
   display: flex;
   justify-content: center;
 }
 
+/* Make the zip code text entry larger */
 .zipInput {
   text-align: center;
   width: 240px;
@@ -205,6 +232,7 @@ h3 {
   padding: 5px 0;
 }
 
+/* Make the submit button larger */
 .submitBtn {
   width: 230px;
   font-size: 1.1em;
@@ -212,36 +240,44 @@ h3 {
   background-color: lightgray;
 }
 
+/* Make the carousel container larger */
 .carouselContainer {
   width: 500px;
 }
 
+/* Make the forecast container larger */
 .forecastContainer {
   width: 500px;
   height: 350px;
   font-size: 1.2em;
 }
 
+/* Make the ul larger */
 ul {
   width: 500px;
 }
 
+/* Make the li larger */
 li {
   width: 500px;
 }
 
+/* Make the p larger */
 p {
   width: 500px;
 }
 
+/* Make the button container larger */
 .buttonContainer {
   width: 500px;
 }
 
+/* Make the previous button larger */
 .previous {
   font-size: 1.2em;
 }
 
+/* Make the next button larger */
 .next {
   font-size: 1.2em;
 }
