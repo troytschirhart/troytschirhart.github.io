@@ -38,7 +38,11 @@ $(() => {
 
     // if the highest index has been reached, before or now, only gray the button
     if (dayTracker === highestIndex) {
-      console.log('gray the button');
+      $('.next').css('background-color', 'gray');
+    }
+
+    if (dayTracker > 0) {
+      $('.previous').css('background-color', 'lightgray');
     }
 
   })
@@ -54,9 +58,14 @@ $(() => {
       newDayClass = '.day' + dayTracker;
       $(newDayClass).css('display', 'block');
     }
-    // if the lowest index has been reached, before or now, only gray the button
+
+    // if the highest index has been reached, before or now, only gray the button
     if (dayTracker === 0) {
-      console.log('gray the button');
+      $('.previous').css('background-color', 'gray');
+    }
+
+    if (dayTracker < highestIndex) {
+      $('.next').css('background-color', 'lightgray');
     }
 
   })
@@ -78,6 +87,7 @@ $(() => {
 
     // Remove resultsContainer's children from previous searches
     $(".forecastContainer").children().text("");
+    $('.previous').css('background-color','gray');
 
     //=========================================================
     //  START OF AJAX
@@ -238,6 +248,7 @@ $(() => {
 
           // console.log(dayHeader);
           $dayHeader.addClass(rowClass[firstDay[j]]);
+          $dayHeader.addClass('cityDate');
           $('.forecastContainer').append($dayHeader);
         }
 
@@ -245,11 +256,15 @@ $(() => {
         // Replace console log with appending to the forecast container
         let $header1 = $('<p>');
         let $header2 = $('<p>');
-        $header1.text(`        Humidity  Temp  Wind  Direction  `);
-        $header2.text(`  Time       (%)    (F)    (mph)   (deg)    Conditions`);
+        $header1.text(`         Humidity  Temp  Wind  Direction  `);
+        $header2.text(`   Time       (%)    (F)    (mph)   (deg)    Conditions`);
 
         $header1.css('white-space','pre');
         $header2.css('white-space','pre');
+
+        $header1.addClass('columnTop');
+        $header2.addClass('columnBottom');
+
 
         $('.forecastContainer').append($header1);
         $('.forecastContainer').append($header2);
@@ -322,7 +337,7 @@ $(() => {
 
           let $rowString = $('<li>');
           $rowString.css('white-space', 'pre');
-          $rowString.text(`${currentHour[i]}  ${spaceCharacter.repeat(3 - humLength)}${humidity[i]}  ${spaceCharacter.repeat(6 - tempLength)}${temperature[i]}  ${spaceCharacter.repeat(5 - mphLength)}${windSpeed[i]}   ${spaceCharacter.repeat(6 - degLength)}${windDirection[i]}   ${conditions[i]}`);
+          $rowString.text(`${spaceCharacter.repeat(1)}${currentHour[i]}  ${spaceCharacter.repeat(3 - humLength)}${humidity[i]}  ${spaceCharacter.repeat(6 - tempLength)}${temperature[i]}  ${spaceCharacter.repeat(5 - mphLength)}${windSpeed[i]}   ${spaceCharacter.repeat(6 - degLength)}${windDirection[i]}   ${conditions[i]}`);
           // $rowString.css('white-space', 'pre');
           $rowString.addClass(rowClass[i]);
           $rowString.addClass('dataLine');

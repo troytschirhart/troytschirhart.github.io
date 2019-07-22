@@ -1,14 +1,8 @@
 * {
-  /* background-color: white; */
   background-color: rgb(150, 240, 256);
-  border: 1px solid gold;
+  /* border: 1px solid gold; */
   width: 320px;
   margin: 0 auto;
-  /* background-image: url(https://www.almanac.com/sites/default/files/styles/primary_image_in_article/public/image_nodes/cloudy-sky.jpg?itok=FDxeE-I5); */
-  /* background-position: center; */
-  /* background-repeat: no-repeat;
-  background-size: contain; */
-    /* background-image: url(https://image.freepik.com/free-vector/weather-icons-collection_1167-124.jpg); */
 }
 
 body {
@@ -20,42 +14,68 @@ body {
 
 header {
   background-color: white;
+  font-size: 2.5em;
+  padding: 7px 0;
+  border-bottom: 3px solid green;
 }
 
 h2 {
   background-color: white;
+  margin-top: 3px;
 }
 
 h3 {
   text-align: center;
+  margin: 0;
   font-size: 1em;
   font-weight: 400;
   background-color: white;
+  padding: 0 12px 10px 12px;
+  width: 296px;
 }
 
+.zipForm {
+  background-color: white;
+  padding: 0 0 10px 0;
+}
 
 .zipInput {
   background-color: white;
   text-align: center;
-  width: 300px;
+  width: 296px;
+  border: 1px solid green;
+  background: lightgray;
+  margin: 0 0 2px 0;
+  font-weight: 700;
 }
 
 .submitBtn {
   background-color: white;
+  width: 300px;
+  border: 1px solid green;
+  background: lightgray;
+}
+
+.zipInput:hover {
+  cursor: text;
+}
+
+.submitBtn:hover {
+  cursor: pointer;
 }
 
 .resultsContainer {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
   background-color: white;
 }
 
 .carouselContainer {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
-    width: 305px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  width: 305px;
   background-color: white;
 }
 
@@ -70,45 +90,21 @@ h3 {
   justify-content: flex-start;
   align-items: flex-start;
   white-space: pre;
+  border: 3px solid gold;
 }
 
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  width: 300px;
-  background-color: white;
+.cityDate {
+  color: gold;
 }
 
-h3 {
-  margin: 0;
-  text-align: center;
+.columnTop {
+  border-top: 1px solid white;
 }
 
-.leftArrow {
-  transform: rotate(180deg);
-  width: 50px;
-  height: 50px;
+.columnBottom {
+  border-bottom: 1px solid white;
 }
 
-.rightArrow {
-  width: 50px;
-  height: 50px;
-}
-
-.day {
-  background-color: inherit;
-}
-
-.day > ul {
-  width: 300px;
-  border: 1px dashed green;
-}
-
-.day > li {
-  background-color: inherit;
-  list-style-type: none;
-  border: 1px solid red;
-}
 
 p {
   display: flex;
@@ -118,6 +114,7 @@ p {
   width: 300px;
 }
 
+/* Data line styles the rows of data displayed in the table */
 .dataLine {
   /* display: flex;
   flex-flow: column; */
@@ -133,7 +130,7 @@ ul {
   list-style-type: none;
   background-color: inherit;
   margin: 0;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   padding: 0;
   width: 300px;
   white-space: pre;
@@ -143,4 +140,100 @@ li {
   width: 300px;
   white-space: pre;
   text-align: left;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  width: 300px;
+  background-color: white;
+  padding: 10px 0;
+}
+
+.previous, .next {
+  width: 140px;
+  border: 1px solid green;
+  background-color: lightgray;
+}
+
+.previous:hover {
+  cursor: pointer;
+}
+
+.next:hover {
+  cursor: pointer;
+}
+
+
+/* Set the page to be responsive */
+@media (min-width: 600px) {
+* {
+    width: 520px;
+}
+
+header {
+  font-size: 1.2em;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+.zipForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zipInput {
+  background-color: white;
+  text-align: center;
+  width: 240px;
+  font-size: 1.1em;
+}
+
+.submitBtn {
+  background-color: white;
+  width: 230px;
+  font-size: 1.1em;
+}
+
+.carouselContainer {
+  width: 500px;
+}
+
+.forecastContainer {
+  width: 500px;
+  height: 350px;
+  font-size: 1.2em;
+}
+
+ul {
+  width: 500px;
+}
+
+li {
+  width: 500px;
+}
+
+p {
+  width: 500px;
+}
+
+.buttonContainer {
+  width: 500px;
+}
+
+.previous {
+  font-size: 1.2em;
+}
+
+.next {
+  font-size: 1.2em;
+}
+
 }
