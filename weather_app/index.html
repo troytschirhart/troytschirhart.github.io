@@ -14,11 +14,15 @@
     <header>Weather App</header>
     <div class="">
       <h2>Instructions</h2>
-      <p>Type the zip code for which you would like to recieve the 5 day weather forecast into the zip code box and click "submit".  The results will be displayed in the forecast block in 3 hour increments.  Press the "next day" button to advance forward through the days in the forecast, and press the "previous day" button to advance in reverse.  If interested in the weather forecast for a different zip code, please enter it into the zip code box and click "submit."</p>
+      <h3>Type the zip code for which you would like to recieve the 5 day weather forecast into the zip code box and click "submit." <br><br>
+
+      The results will be displayed in the forecast block in 3 hour increments.  Press the "next day" button to advance forward through the days in the forecast, and press the "previous day" button to advance in reverse. <br><br>
+
+      If interested in the weather forecast for a different zip code, enter it into the zip code box and click "submit."</h3>
     </div>
-    <form class="" action="index.html" method="post">
-      <input type="text" id="input-box"/>
-      <input type="submit" id="submit-btn"/>
+    <form class="zipForm" action="index.html" method="post">
+      <input type="text" id="input-box" placeholder="Zip Code" class="zipInput"/>
+      <input type="submit" id="submit-btn" class="submitBtn"/>
     </form>
     <div class="resultsContainer">
 

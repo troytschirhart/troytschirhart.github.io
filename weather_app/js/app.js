@@ -245,8 +245,11 @@ $(() => {
         // Replace console log with appending to the forecast container
         let $header1 = $('<p>');
         let $header2 = $('<p>');
-        $header1.text(`      Humidity Temp  Wind  Direction  `);
-        $header2.text(`  Time   (%)   (F)   (mph)  (deg)  Conditions`);
+        $header1.text(`        Humidity  Temp  Wind  Direction  `);
+        $header2.text(`  Time       (%)    (F)    (mph)   (deg)    Conditions`);
+
+        $header1.css('white-space','pre');
+        $header2.css('white-space','pre');
 
         $('.forecastContainer').append($header1);
         $('.forecastContainer').append($header2);
@@ -276,16 +279,20 @@ $(() => {
           let mphLength = (windSpeed[i].toString()).length;
           let degLength = (windDirection[i].toString()).length;
 
+          let spaceCharacter = String.fromCharCode(160);
           // let rowString = [];
 
           // Make all temperature entries 6 characters long
-          if (6 - tempLength > 0) {
-            for (let j = 0; j < (6 - tempLength); j++) {
-              tempSpace += " ";
-            }
-          }
-          temperature[i] = tempSpace + temperature[i];
+          // if (6 - tempLength > 0) {
+          //   for (let j = 0; j < (6 - tempLength); j++) {
+          //     tempSpace += " ";
+          //   }
+          // }
+          // temperature[i] = tempSpace + temperature[i];
 
+          if (6 - tempLength > 0) {
+            temperature[i] = spaceCharacter.repeat(6 - tempLength) + temperature[i];
+          }
 
           // Make all humidity entries 3 characters long
           if (3 - humLength > 0) {
@@ -314,7 +321,9 @@ $(() => {
           windDirection[i] = degSpace + windDirection[i];
 
           let $rowString = $('<li>');
-          $rowString.text(`${currentHour[i]} ${humidity[i]} ${temperature[i]}  ${windSpeed[i]}  ${windDirection[i]}  ${conditions[i]}`);
+          $rowString.css('white-space', 'pre');
+          $rowString.text(`${currentHour[i]}  ${spaceCharacter.repeat(3 - humLength)}${humidity[i]}  ${spaceCharacter.repeat(6 - tempLength)}${temperature[i]}  ${spaceCharacter.repeat(5 - mphLength)}${windSpeed[i]}   ${spaceCharacter.repeat(6 - degLength)}${windDirection[i]}   ${conditions[i]}`);
+          // $rowString.css('white-space', 'pre');
           $rowString.addClass(rowClass[i]);
           $rowString.addClass('dataLine');
           $dataRows.append($rowString);

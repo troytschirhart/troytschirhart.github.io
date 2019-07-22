@@ -1,18 +1,53 @@
 * {
+  /* background-color: white; */
   background-color: rgb(150, 240, 256);
   border: 1px solid gold;
   width: 320px;
   margin: 0 auto;
+  /* background-image: url(https://www.almanac.com/sites/default/files/styles/primary_image_in_article/public/image_nodes/cloudy-sky.jpg?itok=FDxeE-I5); */
+  /* background-position: center; */
+  /* background-repeat: no-repeat;
+  background-size: contain; */
+    /* background-image: url(https://image.freepik.com/free-vector/weather-icons-collection_1167-124.jpg); */
 }
 
 body {
   text-align: center;
-  margin: 0 auto;
+  margin: 25px auto;
+  border: 3px solid green;
+  background-color: white;
+}
+
+header {
+  background-color: white;
+}
+
+h2 {
+  background-color: white;
+}
+
+h3 {
+  text-align: center;
+  font-size: 1em;
+  font-weight: 400;
+  background-color: white;
+}
+
+
+.zipInput {
+  background-color: white;
+  text-align: center;
+  width: 300px;
+}
+
+.submitBtn {
+  background-color: white;
 }
 
 .resultsContainer {
     display: flex;
     justify-content: center;
+  background-color: white;
 }
 
 .carouselContainer {
@@ -21,24 +56,27 @@ body {
     align-items: center;
     justify-content: center;
     width: 305px;
+  background-color: white;
 }
 
 
 .forecastContainer {
   width: 300px;
-  height: 300px;
+  height: 220px;
   color: white;
-  font-size: .5em;
+  font-size: .8em;
   font-weight: bold;
   background-color: blue;
   justify-content: flex-start;
   align-items: flex-start;
+  white-space: pre;
 }
 
 .buttonContainer {
   display: flex;
   flex-direction: row;
   width: 300px;
+  background-color: white;
 }
 
 h3 {
@@ -74,7 +112,7 @@ h3 {
 
 p {
   display: flex;
-  justify-content: center;
+  align-items: flex-start;
   background-color: inherit;
   margin: 0;
   width: 300px;
@@ -88,16 +126,21 @@ p {
 }
 
 ul {
-  /* display: flex;
-  flex-flow: column wrap; */
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   list-style-type: none;
   background-color: inherit;
   margin: 0;
   border: 1px solid red;
   padding: 0;
   width: 300px;
+  white-space: pre;
 }
 
 li {
   width: 300px;
+  white-space: pre;
+  text-align: left;
 }
