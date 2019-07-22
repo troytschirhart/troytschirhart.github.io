@@ -5,7 +5,7 @@
 //==================================
 
 let dayTracker = 0;    // Tracks which forecast day is being displayed
-let highestIndex = 0;  // Trackis the highest index of forecast days
+let highestIndex = 4;  // Tracks the highest index of forecast days
 
 
 //===============================  Start of on load  =======================
@@ -83,13 +83,13 @@ $(() => {
     // Turn previous button gray and next light gray,
     // since the forecast will start on day 0
     $('.previous').css('background-color','gray');
-    $('.next').css('background-color','lightgray');    
+    $('.next').css('background-color','lightgray');
 
     //=========================================================
     //  START OF AJAX
     //=========================================================
     $.ajax({        // Add the zip code to the url to pull the desired data
-      url: "http://api.openweathermap.org/data/2.5/forecast?zip=" + zipCode + ",us&APPID=5d118fc36b1c769a2923778a4df26bd0"
+      url: "https://api.openweathermap.org/data/2.5/forecast?zip=" + zipCode + ",us&APPID=5d118fc36b1c769a2923778a4df26bd0"
     }).then(
 
 
