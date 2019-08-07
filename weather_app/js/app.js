@@ -118,11 +118,6 @@ $(() => {
         let rowClass = [];
         dayTracker = 0;       // reset current day to day 0
 
-        // let forecastDay = 0; // tag each day with its position in the forecast
-        // let currentClass = [];   // store the day class for each datapoint
-        // let tempFaherenheit = 0;
-
-        // console.log("Mo/Day/Yr  Time     Temp(F)  Humidty(%)  Wind(mph)  Wind(deg)  Conditions");
 
         //===============================================================
         //  PARSE THE DATA ELEMENTS OF INTEREST AND STORE THEM IN ARRAYS
@@ -202,7 +197,11 @@ $(() => {
               }
               currentMonth[i] = fixMonth.toString(); // Month to string
             }
+            if (fixDay < 10) {
+              currentDay[i] = "0" + fixDay.toString();
+            } else {
             currentDay[i] = fixDay.toString();     // Day to string
+          }
           }
 
 
@@ -339,6 +338,7 @@ $(() => {
         // If there is an error, probably for invalid zip code, notify user
         (error) => {                         // This doesn't catch the error
           alert('Not a valid zip code');
+          console.log(error);
         }
       })
 
