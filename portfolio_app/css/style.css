@@ -1,10 +1,190 @@
 
+* {
+    /* border: 1px solid gold; */
+}
 
-body, html {
-    height: 100%;
+body {
     background-image: url('../images/milky_way.jpeg');
     background-position: left;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+}
+
+.banner {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    background-color: darkgray;
+    border-radius: 3px;
+    height: 75px;
+    font-family: 'Ubuntu', sans-serif;
+    padding: 5px 25px;
+    position: fixed;
+    top: 5px;
+    left: 10px;
+    right: 10px;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.banner-text {
+    text-decoration: none;
+    font-size: 2rem;
+    color: darkblue;
+    font-weight: bold;
+}
+
+.banner-nav {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.nav-btns {
+    font-family: 'Noto Sans KR', sans-serif;
+    text-decoration: none;
+    margin: 0 15px;
+    color: darkblue;
+    font-weight: 900;
+    font-size: 1.5rem;
+}
+
+.welcome {
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding: 75px 0 0 0;
+    height: 750px;
+    width: 100%;
+    display: flex;
+    color: white;
+}
+
+.welcome > img {
+    height: 300px;
+    background-color: white;
+    padding: 5px;
+}
+
+.welcome-name {
+    margin: 0 0 30px 0;
+    font-size: 4rem;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.welcome-text {
+    margin: 30px 0 0 0;
+    font-size: 2rem;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.projects {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    flex-flow: column;
+    align-items: center;
+    padding: 90px 0 50px 0;
+    width: 100%;
+    color: white;
+}
+
+.card-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.card {
+    display: flex;
+    flex-flow: column;
+    border: 1px solid darkgray;
+    height: 400px;
+    width: 350px;
+    background-color: black;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 15px;
+}
+.card > img {
+    height: 200px;
+    max-width: 350px;
+}
+
+.card > h3 {
+    text-align: center;
+    margin: 5px;
+}
+
+.card > h4 {
+    margin: 5px 15px;
+}
+
+.proj1 {
+    text-decoration: none;
+    text-decoration: underline;
+    text-align: center;
+    color: cadetblue;
+    margin: 50px 0 0 0;
+}
+
+.proj2 {
+    text-decoration: none;
+    text-decoration: underline;
+    text-align: center;
+    color: cadetblue;
+    margin: 5px 0 0 0;
+}
+
+.aboutme {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 90px 0 50px 0;
+    width: 100%;
+    color: white;
+    height: 750px;
+}
+
+.aboutme > h1 {
+    padding: 20px 0 0 0;
+    /* text-decoration: underline; */
+}
+
+.aboutme > h3 {
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 0 75px;
+}
+
+.aboutme > p {
+    /* padding: 10px 0; */
+}
+
+.resume {
+    text-decoration: none;
+    text-decoration: underline;
+    text-align: center;
+    color: darkblue;
+    margin: 50px 0 0 0;
+    font-size: 3rem;
+    padding: 15px;
+    background-color: darkgray;
+    border: 1px solid darkblue;
+}
+
+.contact {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    flex-flow: column;
+    align-items: center;
+    padding: 90px 0 50px 0;
+    width: 100%;
+    color: white;
+    height: 750px;
+}
+
+.contact > h1 {
+    padding: 20px 0 0 0;
+}
+
+.contact-link {
+    color: cadetblue;
 }
