@@ -4,9 +4,9 @@
   background-color: rgb(150, 240, 256);
   width: 320px;
   margin: 0 auto;
-  background-image: url(https://media.mnn.com/assets/images/2018/08/CollectionOfCloudsAgainstABlueSky.jpg.653x0_q80_crop-smart.jpg);
-  background-position: center;
-  background-size: cover;
+  background-image: url('../images/Clouds.jpg');
+  background-position: center;  
+  background-size: 2000px 1200px;
 }
 
 /* Format the body */
